@@ -1,0 +1,28 @@
+environment = {'A': 'Dirty', 'B': 'Dirty'}
+location = 'A'
+
+while True:
+    print("Current position:", location)
+    print("Environment:", environment)
+    
+    if environment['A'] == 'clean' and environment['B'] == 'clean':
+        print("Goal achieved! Both rooms are cleaned")
+        break
+        
+    if environment[location] == 'Dirty':
+        print("Action: Suck")
+        environment[location] = 'clean'
+    elif location == 'A':
+        print("Action: MOVE RIGHT")
+        location = 'B'
+    else:
+        print("Action: MOVE LEFT")
+        location = 'A'
+        
+    print("-" * 40)
+
+print("\nRATIONAL BEHAVIOUR ANALYSIS")
+print("It cleans the room immediately if it gets dirty.")
+print("Moves to another room only if the previous room is cleaned.")
+print("Stops when both the rooms are cleaned.")
+print("Hence it shows rational behaviour for this environment.")

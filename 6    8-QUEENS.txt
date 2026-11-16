@@ -1,0 +1,57 @@
+N = 8
+board = [-1] * N
+nodes_explored = 0
+solutions = []
+
+
+def is_safe(board, row, col):
+  for previous_col in range(col):
+    previous_row = board[previous_col]
+    if previous_row == row:
+      return False
+    if abs(previous_row - row) == abs(previous_col - col):
+      return False
+  return True
+
+
+def backtracking_search(col=0):
+  global nodes_explored
+  nodes_explored += 1
+  if col == N:
+    solutions.append(board.copy())
+    return
+  for row in range(N):
+    if is_safe(board, row, col):
+      board[col] = row
+      backtracking_search(col + 1)
+      board[col] = -1
+
+
+board = [-1] * N
+nodes_explored = 0
+solutions = []
+backtracking_search(0)
+
+print("Number of solutions found:", len(solutions))
+print("Search nodes explored:", nodes_explored)
+
+
+def print_board(solution):
+  print("8-Queens Solution")
+  print("-" * (N * 4 + 1))
+  for row in range(N):
+    row_text = ""
+    for col in range(N):
+      if solution[col] == row:
+        row_text += " Q "
+      else:
+        row_text += " . "
+    print(row_text)
+  print("-" * (N * 4 + 1))
+  print("Queen positions (column, row):")
+  for col, row in enumerate(solution):
+    print(f"({col}, {row})", end=" ")
+  print()
+
+
+print_board(solutions[0])

@@ -1,0 +1,77 @@
+import re
+rules = [
+    (
+        r"\b(hey|hi|hello|good morning|good afternoon|good evening)\b",
+        [
+            "hello!how can i help you?",
+            "hey!what would you like to know?",
+            "hi!how can i assist you?"
+        ]
+    ),
+    (
+        r"\b(how are you|how r u|how are u)\b",
+        [
+            "i am fine! thanks for asking",
+            "good ! how can i assist you?"
+        ]
+    ),
+    (
+       r"\b(who are you? | how can i call you| what is your name?)\b",
+      [
+      "i am a simple chatbot made with predefined rules",
+      "i am an chatbot used to answer simple rule based based questions"    
+      ]
+    ),
+    (
+        r"\b(help|help me|please help|can you help me ?)\b",
+        [
+            "yes,what help would you like?", 
+            "sure! how can i assist you?"
+        ]
+    ),
+    ( 
+        r"\b(thanks|thankyou|thanks a lot)\b",
+        [
+            "you are welcome",
+            "its muy pleasure"
+        ]
+    ),
+    (
+        r"\b(exit|quit|bye|see you)\b",
+        [
+            "it was nice talking to you",
+            "bye! see you agian"
+        ]
+    )
+]
+capable_responses = [
+    "it is an simple rule based chatbot used to answer predefined questions"
+    "i am an simple rule based query solving chatbot asked by an user"
+]
+def normalized_text(text):
+    text = text.lower()
+    text = text.strip()
+    return text
+def get_response(user_input):
+    message = normalized_text(user_input)
+    for pattern, responses in rules:
+        if re.search(pattern, message, re.IGNORECASE):
+            return responses[0]
+    return "Sorry i cannot understand this yet ! please ask me an simple question"
+
+def chatbot():
+ print("chatbot : Hello! i am an simple chatbot to solve your questions")
+ print("chatbot : type 'exit' or 'quit' to end the conversation")
+
+while True:
+    user_input = input("you: ")
+    normalized_input = normalized_text(user_input)
+
+    if normalized_input in {"bye", "quit", "exit", "goodbye"}:
+        print("chatbot:", get_response(user_input))
+        break
+
+    response = get_response(user_input)
+    print("chatbot:", response)
+
+chatbot()

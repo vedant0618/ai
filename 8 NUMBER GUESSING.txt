@@ -1,0 +1,45 @@
+low = 1
+high = 100
+print("Think of a number between", low, "and", high)
+print("Then run the next cell and answer the agent's questions with h, l or c.")
+
+attempts = 0
+max_attempts = 15
+found = False
+
+while low <= high and attempts < max_attempts:
+    guess = (low + high) // 2
+    raw_answer = input(f"Is your number {guess}? Type h (higher), l (lower) or c (correct): ")
+    answer = raw_answer.strip().lower()
+    
+    if answer == 'c':
+        attempts = attempts + 1
+        print("I guessed your number", guess, "in", attempts, "attempts!")
+        found = True
+        break
+    elif answer == 'h':
+        attempts = attempts + 1
+        low = guess + 1
+    elif answer == 'l':
+        attempts = attempts + 1
+        high = guess - 1
+    else:
+        print("I did not understand that. Please type only h, l or c.")
+
+if not found and low > high:
+    print("Your answers contradicted each other, so no number fits. Please try again.")
+elif not found and attempts >= max_attempts:
+    print("Safety limit reached (", max_attempts, "tries). Stopping to avoid an endless loop.")
+
+numbers_left = 100
+step = 0
+max_steps = 20
+print("Numbers left:", numbers_left)
+
+while numbers_left > 1 and step < max_steps:
+    numbers_left = numbers_left // 2
+    step = step + 1
+    print("Numbers left:", numbers_left)
+
+print("\nIt only takes", step, "steps to go from 100 numbers down to 1!")
+

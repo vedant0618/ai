@@ -1,0 +1,31 @@
+from collections import deque
+
+Grid = [
+    ['S', 0, 0, 'X'],
+    [0, 'X', 0, 0],
+    [0, 0, 0, 'X'],
+    ['X', 0, 0, 'G']
+]
+
+Start, Goal = (0, 0), (3, 3)
+visited = {Start}
+q = deque([(Start, [Start])])
+
+print("Grid Navigation Begins")
+
+while q:
+    (r, c), path = q.popleft()
+    print("Current Position:", (r, c))
+    
+    if (r, c) == Goal:
+        print("Goal Reached!")
+        print("Final Path:", path)
+        break
+        
+    for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+        x, y = r + dr, c + dc
+        if 0 <= x < 4 and 0 <= y < 4 and Grid[x][y] != 'X' and (x, y) not in visited:
+            visited.add((x, y))
+            q.append(((x, y), path + [(x, y)]))
+else:
+    print("Goal not found")
